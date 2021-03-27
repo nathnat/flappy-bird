@@ -1,8 +1,10 @@
+window.requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+
 function randomInt(min, max) {
 	return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
-Array.prototype.last = function() {
+Array.prototype.last = function () {
 	return this[this.length - 1];
 };
 
@@ -16,7 +18,10 @@ const context = canvas.getContext('2d');
 const wait = 20;
 const bird = new Image();
 bird.src = 'image/bird.png';
-bird.position = { y: canvas.height/2, x: 30 }
+bird.position = {
+	y: canvas.height / 2,
+	x: 30
+}
 bird.fallSpeed = 0;
 
 bird.jump = () => {
@@ -28,12 +33,12 @@ bird.reset = () => {
 	gameOver.querySelector('.score').innerHTML = score;
 	intervalPause = true;
 	gameOver.style.transform = 'translate(-50%, -50%) scale(1)';
-	
-	
+
+
 	gameOver.querySelector('button').addEventListener('click', () => {
 		gameOver.style.transform = 'translate(-50%, -50%) scale(0)';
-		
-		bird.position.y = canvas.height/2;
+
+		bird.position.y = canvas.height / 2;
 		bird.fallSpeed = 0;
 		pipes = [];
 		pipes.push(new Pipe('up'));
@@ -41,7 +46,7 @@ bird.reset = () => {
 		score = 0;
 		intervalPause = false;
 	}, { once: true });
-	
+
 
 };
 
@@ -71,43 +76,51 @@ let score = 0;
 let bestscore = 0;
 
 let intervalPause = false;
-let interval = setInterval(() => {
+
+canvas.addEventListener('click', bird.jump);
+window.addEventListener('keydown', (e) => {
+	if (e.code === 'Space' || e.code === 'ArrowUp') bird.jump()
+});
+
+function animate(timestamp) {
 	if (!intervalPause) {
 		// On efface tout
 		context.clearRect(0, 0, canvas.width, canvas.height);
 
-		// On fait le calcul de la gravité
-		bird.position.y -= bird.fallSpeed -= 0.5;
-		
-		// On dessine l'oiseau
-		context.drawImage(bird, bird.position.x, bird.position.y, 35, 25);
-		
-		// On gère lorsque l'oiseau touche les bords
-		if (bird.position.y >= canvas.height || bird.position.y <= 0) bird.reset();
-
 		// On dessine les tuyaux
 		context.fillStyle = 'green';
-		
+
 		// On gère les tuyaux
 		pipes.forEach(pipe => {
+			pipe.x -= 2.5;
+			context.fillStyle = 'green';
 			context.fillRect(pipe.x, pipe.y, pipe.width, pipe.height);
-			pipe.x -= 3;
-			if (pipe.x+pipe.width <= 0) {
+
+			if (pipe.x + pipe.width <= 0) {
 				if (pipe.spot == 'up') score++;
 				pipes.shift();
 				pipes.push(new Pipe(pipe.spot))
 			}
-			
-			if (pipe.spot == 'up' && pipe.x-pipe.width <= bird.position.x && bird.position.y < pipe.height) {
+
+			if (pipe.spot == 'up' && pipe.x - pipe.width <= bird.position.x && bird.position.y < pipe.height) {
 				bird.reset();
 			}
-			
-			
-			if (pipe.spot == 'down' && pipe.x-pipe.width <= bird.position.x && bird.position.y > canvas.height - ~pipe.height) {
+
+
+			if (pipe.spot == 'down' && pipe.x - pipe.width <= bird.position.x && bird.position.y > canvas.height - ~pipe.height) {
 				bird.reset();
 			}
 		});
-		
+
+		// On fait le calcul de la gravité
+		bird.position.y -= bird.fallSpeed -= 0.5;
+
+		// On dessine l'oiseau
+		context.drawImage(bird, bird.position.x, bird.position.y, 35, 25);
+
+		// On gère lorsque l'oiseau touche les bords
+		if (bird.position.y >= canvas.height || bird.position.y <= 0) bird.reset();
+
 		// On incrémente et on affiche le score
 		context.fillStyle = 'black';
 		context.font = '17px Consolas';
@@ -117,9 +130,6 @@ let interval = setInterval(() => {
 		}
 		context.fillText(`Best score : ${bestscore}`, 10, 50);
 	}
-}, wait);
-
-canvas.addEventListener('click', bird.jump);
-window.addEventListener('keydown', (e) => {
-	if (e.code === 'Space' || e.code === 'ArrowUp') bird.jump()
-});
+	window.requestAnimationFrame(animate);
+}
+animate();

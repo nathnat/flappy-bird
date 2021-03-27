@@ -8,13 +8,14 @@
 	margin: 0;
 }
 
-body
-{
-	
+body {
+	-webkit-user-select: none;  
+	-moz-user-select: none;    
+	-ms-user-select: none;      
+	user-select: none;
 }
 
-canvas
-{
+canvas {
 	position: absolute;
 	background-image: url('image/background.png');
 	background-size: contain;
@@ -57,7 +58,6 @@ canvas
 	padding: 10px;
 	background-color: tomato;
 	border-radius: 5px;
-	user-select: none;
 }
 
 @media all and (max-device-width: 500px)
