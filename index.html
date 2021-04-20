@@ -5,17 +5,22 @@
         <meta name="viewport" content="width=device-width, user-scalable=no">
         <title>Flappy Bird</title>
 
-        <!-- Fichier CSS -->
+        <!-- CSS -->
         <link rel="stylesheet" href="style.css">
+
+        <!-- Icon -->
+        <link rel="icon" href="favicon.ico" type="image/x-icon" />
     </head>
     <body>
 		<div class="game-over">
-			<h1>Perdu</h1>
-			<p>Score : <span class="score"></span></p>
-			<button>Recommencer</button>
+			<span class="title">Game&nbsp;over</span>
+			<p>
+                Score : <span class="score"></span>
+            </p>
+			<button class="non-selectable"><img src="image/restart.png" alt="Restart" draggable="false"></button>
 		</div>
 	
-        <canvas width="512" height="597,333333333333333333333333"></canvas>
+        <canvas class="non-selectable" width="512" height="597,333333333333333333333333"></canvas>
 
         <!-- Fichier JS -->
         <script src="sketch.js"></script>

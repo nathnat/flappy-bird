@@ -102,28 +102,28 @@ function animate(timestamp) {
 				bird.reset();
 			}
 
-
 			if (pipe.spot == 'down' && pipe.x - pipe.width <= bird.position.x && bird.position.y > canvas.height - ~pipe.height) {
 				bird.reset();
 			}
 		});
 
-		// On fait le calcul de la gravité
+		// Calcul de la gravité
 		bird.position.y -= bird.fallSpeed -= 0.3;
 
 		// On dessine l'oiseau
 		context.drawImage(bird, bird.position.x, bird.position.y, 35, 25);
 
-		// On gère lorsque l'oiseau touche les bords
-		if (bird.position.y >= canvas.height || bird.position.y <= 0) bird.reset();
+		// Si l'oiseau touche le sol
+		if (bird.position.y >= canvas.height) bird.reset();
 
-		// On incrémente et on affiche le score
+		// On incrémente le score
 		context.fillStyle = 'black';
 		context.font = '17px Consolas';
 		context.fillText(`Score : ${score}`, 10, 23);
 		if (bestscore < score) {
 			bestscore = score;
 		}
+		// On affiche le score
 		context.fillText(`Best score : ${bestscore}`, 10, 50);
 	}
 	window.requestAnimationFrame(animate);

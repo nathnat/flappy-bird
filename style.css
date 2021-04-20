@@ -1,14 +1,20 @@
 @font-face {
 	font-family: "Flappy Font";
-	src: url('font/FlappyBirdy.ttf') format("truetype");
+	src: url('font/FB.ttf') format('truetype'),
+		 url('font/FB.woff') format('woff')
 }
 
 * {
 	padding: 0;
 	margin: 0;
+	font-family: "Flappy Font";
+	color: black;
+	-webkit-text-fill-color: white; /* Will override color (regardless of order) */
+	-webkit-text-stroke-width: 3.5px;
+	-webkit-text-stroke-color: black;
 }
 
-body {
+.non-selectable {
 	-webkit-user-select: none;  
 	-moz-user-select: none;    
 	-ms-user-select: none;      
@@ -25,39 +31,28 @@ canvas {
 }
 
 .game-over {
-	font-family: "Flappy Font";
-	border-radius: 5px;
-	padding: 20px;
-	background-color: white;
 	z-index: 2;
 	position: absolute;
 	left: 50%; top: 50%;
 	transform: translate(-50%, -50%) scale(0); 
 	transition: transform .2s;
+	text-align: center;
 }
-
-.game-over > h1 {
-	font-size: 100px;
-}
-
-.game-over > p {
-	font-size: 90px;
-}
-
-.game-over > p > .score{
+.game-over {
 	font-size: 60px;
-	font-family: Verdana;
+}
+
+.game-over p {
+	font-size: 50px;
+	-webkit-text-stroke-width: 3px;
 }
 
 .game-over > button {
 	cursor: pointer;
-	font-size: 90px;
-	font-family: "Flappy Font";
 	border: none;
 	outline: none;
-	padding: 10px;
-	background-color: tomato;
-	border-radius: 5px;
+	background: transparent;
+	margin-top: 10px;
 }
 
 @media all and (max-device-width: 500px)
