@@ -8,12 +8,8 @@ Array.prototype.last = function () {
 	return this[this.length - 1];
 };
 
-
 const canvas = document.querySelector('canvas');
 const context = canvas.getContext('2d');
-
-// const background = new Image();
-// background.src = 'image/background.png';
 
 const wait = 20;
 const bird = new Image();
@@ -25,7 +21,7 @@ bird.position = {
 bird.fallSpeed = 0;
 
 bird.jump = () => {
-	bird.fallSpeed = 9;
+	bird.fallSpeed = 7;
 };
 
 bird.reset = () => {
@@ -113,7 +109,7 @@ function animate(timestamp) {
 		});
 
 		// On fait le calcul de la gravité
-		bird.position.y -= bird.fallSpeed -= 0.5;
+		bird.position.y -= bird.fallSpeed -= 0.3;
 
 		// On dessine l'oiseau
 		context.drawImage(bird, bird.position.x, bird.position.y, 35, 25);
