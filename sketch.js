@@ -92,6 +92,8 @@ function animate(timestamp) {
 			context.fillStyle = 'green';
 			context.fillRect(pipe.x, pipe.y, pipe.width, pipe.height);
 
+			console.log(pipe.x);
+
 			if (pipe.x + pipe.width <= 0) {
 				if (pipe.spot == 'up') score++;
 				pipes.shift();

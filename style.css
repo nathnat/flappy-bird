@@ -9,12 +9,10 @@
 	margin: 0;
 	font-family: "Flappy Font";
 	color: black;
-	-webkit-text-fill-color: white; /* Will override color (regardless of order) */
+	-webkit-text-fill-color: white;
 	-webkit-text-stroke-width: 3.5px;
 	-webkit-text-stroke-color: black;
-}
 
-.non-selectable {
 	-webkit-user-select: none;  
 	-moz-user-select: none;    
 	-ms-user-select: none;      
