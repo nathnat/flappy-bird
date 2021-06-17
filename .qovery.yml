@@ -1,0 +1,15 @@
+---
+application:
+  name: "flappy-bird"
+  project: "test-qovery"
+  organization: "QoveryCommunity"
+databases:
+- type: "MYSQL"
+  name: "fads"
+  version: "8.0"
+routers:
+- name: "main-flappy-bird"
+  routes:
+  - application_name: "flappy-bird"
+    paths:
+    - "/*"
